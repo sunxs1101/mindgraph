@@ -1,0 +1,23 @@
+digraph G{
+cluster -> CoreOS;
+cluster -> k8s;
+CoreOS -> etcd;
+CoreOS -> systemd;
+CoreOS -> flannel;
+systemd -> fleet[dir=both,label="DBus API"];
+systemd -> Unit;
+systemd -> systemctl;
+systemd -> journalctl;
+CoreOS -> pxe;
+CoreOS -> "cloud-config";
+CoreOS -> Docker;
+etcd -> fleet;
+"API Server" -> {pod;volumes;service;labels;RC}
+k8s -> etcd;
+k8s -> Master;
+k8s -> "Node";
+Master ->{"API Server";Scheduler;"Controller Manager"}
+"Node" -> {"Kubelet";Proxy;Docker}
+Master,"Node",Docker,systemctl,journalctl,cluster,CoreOS,k8s,etcd,systemd,Unit,pod,volumes,flannel,fleet,pxe,"cloud-config",RC[style=filled,color=lightgray];
+cluster[label="docker cluster"];
+}
