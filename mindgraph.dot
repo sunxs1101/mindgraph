@@ -1,0 +1,21 @@
+digraph G{
+cluster -> CoreOS;
+cluster -> k8s;
+CoreOS -> etcd;
+CoreOS -> systemd;
+CoreOS -> flannel;
+systemd -> fleet[dir=both,label="DBus API"];
+systemd -> Unit;
+systemd -> systemctl;
+systemd -> journalctl;
+CoreOS -> pxe;
+CoreOS -> "cloud-config";
+etcd -> fleet;
+k8s -> pod;
+k8s -> volumes;
+k8s -> service;
+k8s -> labels;
+k8s ->RC;
+cluster,CoreOS,k8s,etcd,systemd,Unit,pod,volumes,flannel,fleet,pxe,"cloud-config",RC[style=filled,color=lightgray];
+cluster[label="docker cluster"];
+}
